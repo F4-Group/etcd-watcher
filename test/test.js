@@ -9,6 +9,7 @@ var etcdWatcher = require('../lib');
 async.series([
     testAllRequired,
     testAllOptional,
+    testEtcdKey,
     testLegacy,
 ], function (err) {
     assert.ifError(err);
@@ -71,6 +72,30 @@ function testAllOptional(cb) {
             _.bind(etcd.set, etcd, keys[0], 'aa'),
             _.bind(etcd.set, etcd, keys[1], 'bb'),
             _.bind(etcd.set, etcd, keys[1], 'bc'),
+        ], function (err) {
+            assert.ifError(err);
+            expect.checkAllReceived(cb);
+        });
+    });
+}
+
+function testEtcdKey(cb) {
+    var etcdKey = '/test-ew/5';
+    var options = {
+        theKey: {
+            required: true,
+            etcd: etcdKey,
+        },
+    };
+    var watcher = etcdWatcher.watcher(etcd, options);
+    async.series([
+        _.bind(etcd.del, etcd, etcdKey),
+    ], function (err) {
+        var expect = expectSeries(watcher, [
+            { theKey: 'thevalue' },
+        ]);
+        async.series([
+            _.bind(etcd.set, etcd, etcdKey, 'thevalue'),
         ], function (err) {
             assert.ifError(err);
             expect.checkAllReceived(cb);
