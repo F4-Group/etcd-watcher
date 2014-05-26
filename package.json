@@ -1,8 +1,12 @@
 {
     "name": "etcd-watcher",
     "description": "Wait for etcd key creation and watch changes",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "main": "./lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/F4-Group/etcd-watcher.git"
+    },
     "dependencies": {
         "underscore": "~1.6.0",
         "async": "~0.7.0"
