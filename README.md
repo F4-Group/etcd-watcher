@@ -16,7 +16,16 @@ var Etcd = require('node-etcd');
 var etcd = new Etcd();
 var etcdWatcher = require('etcd-watcher');
 
-var watcher = etcdWatcher.watcher(etcd, ['key1', 'key2']);
+var watcher = etcdWatcher.watcher(etcd, {
+    key1: {
+        required: true,
+        etcd: '/foo/bar/key1' 
+    },
+    key2: {
+        required: false,
+        default: 'defaultValue'
+    }
+});
 watcher.wait(function (err, values) {
     console.log('keys set', values);
     watcher.on('change', function (values) {

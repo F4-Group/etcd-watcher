@@ -1,3 +1,9 @@
+0.5.0 / 2014-05-26
+===================
+
+  * Handle optional keys.
+  * Handle etcd key different from result key.
+
 0.4.1 / 2014-05-26
 ===================
 
