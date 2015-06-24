@@ -1,7 +1,7 @@
 {
     "name": "etcd-watcher",
     "description": "Wait for etcd key creation and watch changes",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "main": "./lib/index.js",
     "repository": {
         "type": "git",
